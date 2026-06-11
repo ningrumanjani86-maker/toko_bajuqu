@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabel Item</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body class="p-4">
-    <h1 class="text-2xl font-bold mb-5">Tabel Product Toko BajuQu</h1>
-    <button onclick="toggle_modal()" class="bg-blue-500 text-white px-4 py-2 rounded-2xl">+ Tambah Item</button>
+    @include('navbar')
+    <button onclick="toggle_modal()" class="bg-blue-500 text-white px-4 py-2 rounded-2xl">+ Tambah Item
+        <span class="material-icons"></span>
+    </button>
     
     <table class="table-auto w-full mt-5">
         <thead>
@@ -30,13 +33,21 @@
                     <td class="border p-2">{{ $p->deskripsi }}</td>
                     <td class="border p-2 text-center">
                         <div class="flex items-center justify-center gap-4">
-                            <button onclick="toggle_edit({{ $p }})" class="text-green-500 font-medium"><span class="material-icons">Edit</span></button>
-                            <button onclick="if(confirm('Yakin Anda Ingin Menghapus?')) {document.getElementById('form-delete{{ $p->id}}').submit(); }" class="text-red-600 font-medium"><span class="material-icons">Delete</span>
-                        </button>
-                        <form id="form-delete{{ $p->id }}" action="{{ route('products.destroy', $p->id) }}" method="post" class="hidden">
-                            @csrf
-                            @method('DELETE')
-                        </form>
+                            {{-- tombol edit --}}
+                            <button onclick="toggle_edit({{ $p }})" class="text-blue-500 hover:text-blue-700">
+                                <span class="material-icons">edit</span>
+                            </button>
+
+                            {{-- tombol delete --}}
+                            <button onclick="if(confirm('Yakin Anda Ingin Menghapus?')) {document.getElementById('form-delete{{ $p->id}}').submit(); }" 
+                                    class="text-red-600 hover:text-red-800 font-medium">
+                                <span class="material-icons">delete</span>
+                            </button>
+
+                            <form id="form-delete{{ $p->id }}" action="{{ route('products.destroy', $p->id) }}" method="post" class="hidden">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </div>
                     </td>
                 </tr>

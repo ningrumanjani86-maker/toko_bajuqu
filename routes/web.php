@@ -11,7 +11,8 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 
 // Logout
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 // Protect halaman products
 Route::middleware('auth')->group(function() {
