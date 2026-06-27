@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     // login berhasil
     $request->session()->regenerate();
-    return redirect()->route('products.index'); // pastikan nama route sesuai
+    return redirect()->route('products.index')->with('success', 'Login Berhasil !'); // pastikan nama route sesuai
 }
 
     //proses logout
