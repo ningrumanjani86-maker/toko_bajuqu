@@ -10,6 +10,26 @@
 </head>
 <body class="p-4">
     @include('navbar')
+
+    {{-- Notifikasi login berhasil --}}
+    @if(session('success'))
+        <div id="alert-success" 
+             class="fixed top-5 left-1/2 transform -translate-x-1/2 
+                    bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-500">
+            {{ session('success') }}
+        </div>
+        <script>
+            // otomatis hilang setelah 3 detik
+            setTimeout(() => {
+                const alertBox = document.getElementById('alert-success');
+                if(alertBox){
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.remove(), 500); // hapus elemen setelah fade out
+                }
+            }, 6000);
+        </script>
+    @endif
+
     <div class="flex gap-2 mb-5">
         <button onclick="toggle_modal()" class="bg-blue-500 text-white px-4 py-2 rounded-2xl">+ Tambah Item
             <span class="material-icons"></span>
