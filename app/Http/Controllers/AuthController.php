@@ -12,21 +12,20 @@ class AuthController extends Controller
         return view('login');
     }
     //memproses data login
-    public function login(Request $request) {
-        $credentials = $request->only('email', 'password');
+    public function login(Request $request)
+{
+    $credentials = $request->only('email', 'password');
 
-        if (!Auth::attempt($credentials)) {
-            //buat session
-            $request->session()->regenerate();
-            return redirect()->route('products');
-            // kirim error ke view
-            return back()->withErrors([
-                'login_error' => 'Email atau password salah.'
-            ]);
-        }
-
-        return redirect()->intended('products');
+    if (!Auth::attempt($credentials)) {
+        return back()->withErrors([
+            'login_error' => 'Email atau password salah.'
+        ]);
     }
+
+    // login berhasil
+    $request->session()->regenerate();
+    return redirect()->route('products.index'); // pastikan nama route sesuai
+}
 
     //proses logout
     public function logout(Request $request) {
