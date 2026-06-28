@@ -52,6 +52,7 @@
                 <th>Harga</th>
                 <th>Stok</th>
                 <th>Deskripsi</th>
+                <th>Kategori</th>
             </tr>
         </thead>
         <tbody>
@@ -62,6 +63,7 @@
                     <td>Rp. {{ number_format($p->harga,0,',','.') }}</td>
                     <td>{{ $p->stok }}</td>
                     <td>{{ $p->deskripsi }}</td>
+                    <td>{{ $p->category->name ?? '-' }}</td>
                 </tr>
             @endforeach
         </tbody>

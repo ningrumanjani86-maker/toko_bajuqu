@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Category;   
+use App\Models\Products;   
 
 class ProductController extends Controller
 {
@@ -12,9 +14,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //tampilkan products:
-        $products = \App\Models\products::all();
-        return view('products.index', compact('products'));
+        // ambil semua produk + relasi kategori
+        $products = Products::with('category')->get();
+        // ambil semua kategori untuk dropdown
+        $categories = Category::all();
+        return view('products.index', compact('products','categories'));
     }
 
     /**
@@ -36,7 +40,7 @@ class ProductController extends Controller
                 'nama_barang' => 'required',
                 'harga' => 'required|numeric',
                 'stok' => 'required|numeric',
-                'deskripsi' => 'required',  
+                'deskripsi' => 'required',
             ]
         );
         \App\Models\Products::create($request->all());
@@ -71,6 +75,7 @@ class ProductController extends Controller
                 'harga' => 'required|numeric',
                 'stok' => 'required|numeric',
                 'deskripsi' => 'required',  
+                'category_id' => 'nullable|exists:categories,id'  
             ]
         );
         //cari produk berdasarkan ID :
